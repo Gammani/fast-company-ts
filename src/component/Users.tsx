@@ -3,10 +3,11 @@ import api from "../api";
 import {UsersType} from "../api/fake.api/user.api";
 
 const Users = () => {
+
     const [users, setUsers] = useState<Array<UsersType>>(api.users.fetchAll());
+
     const handleDelete = (id: string) => {
-        const newUsers = users.filter(user => user._id !== id);
-        setUsers(newUsers)
+        setUsers(users.filter(user => user._id !== id))
     };
     const handlePhrase = (value: number) => {
         if (value === 0) {
@@ -25,33 +26,42 @@ const Users = () => {
 
     return (
         <div>
-            <h1> <span className={users.length !== 0 ? "badge bg-primary" : "badge bg-danger"}>{handlePhrase(users.length)}</span></h1>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Качества</th>
-                    <th scope="col">Профессия</th>
-                    <th scope="col">Встретился, раз</th>
-                    <th scope="col">Оценка</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                {users.map((user) => {
-                    return (
-                        <tr key={user._id}>
-                            <th scope="row" key={user._id}>{user.name}</th>
-                            <td>{user.qualities.map((item) => <span key={item._id} className={`badge bg-${item.color} m-1`}>{item.name}</span>)}</td>
-                            <td>{user.profession.name}</td>
-                            <td>{user.completedMeetings}</td>
-                            <td>{user.rate}</td>
-                            <td><button className={"btn btn-danger"} onClick={() => handleDelete(user._id)}>delete</button></td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
+            <h1><span
+                className={users.length !== 0 ? "badge bg-primary" : "badge bg-danger"}>{handlePhrase(users.length)}</span>
+            </h1>
+            {
+                users.length > 0 &&
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Качества</th>
+                        <th scope="col">Профессия</th>
+                        <th scope="col">Встретился, раз</th>
+                        <th scope="col">Оценка</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {users.map((user) => {
+                        return (
+                            <tr key={user._id}>
+                                <th scope="row" key={user._id}>{user.name}</th>
+                                <td>{user.qualities.map((item) => <span key={item._id}
+                                                                        className={"badge m-1 bg-" + item.color}>{item.name}</span>)}</td>
+                                <td>{user.profession.name}</td>
+                                <td>{user.completedMeetings}</td>
+                                <td>{user.rate}</td>
+                                <td>
+                                    <button className={"btn btn-danger"} onClick={() => handleDelete(user._id)}>delete
+                                    </button>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
+            }
         </div>
     )
 };
