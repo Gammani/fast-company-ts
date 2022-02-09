@@ -28,47 +28,19 @@ type ProfessionType = {
     _id: string
 }
 
-
-// Qualities Type
-type TediousType = {
+type QualityType = {
     _id: string
-    name: "Нудила"
-    color: "primary"
-}
-type StrangeType = {
-    _id: string
-    name: "Странный"
-    color: "secondary"
-}
-type BullerType = {
-    _id: string
-    name: "Троль"
-    color: "success"
-}
-type AlcoholicType = {
-    _id: string
-    name: "Алкоголик"
-    color: "danger"
-}
-type HandsomeType = {
-    _id: string
-    name: "Красавчик"
-    color: "info"
-}
-type UncertainType = {
-    _id: string
-    name: "Неуверенный"
-    color: "dark"
+    name: string
+    color: string
 }
 type QualitiesType = {
-    tedious: TediousType
-    strange: StrangeType
-    buller: BullerType
-    alcoholic: AlcoholicType
-    handsome: HandsomeType
-    uncertain: UncertainType
+    tedious: QualityType
+    strange: QualityType
+    buller: QualityType
+    alcoholic: QualityType
+    handsome: QualityType
+    uncertain: QualityType
 }
-
 
 type ProfessionsType = {
     doctor: DoctorType
@@ -84,7 +56,7 @@ export type UsersType = {
     _id: string
     name: string
     profession: ProfType
-    qualities: Array<any>
+    qualities: Array<QualityType>
     completedMeetings: number
     rate: number
     bookmark: boolean
