@@ -1,10 +1,15 @@
 import React from "react";
+import {QualityType} from "../api/fake.api/user.api";
 
-const Qualities = () => {
+type PropsType = {
+    item: QualityType
+}
+
+const Qualities = (props: PropsType) => {
     return (
-        <div>
-
-        </div>
+        <span className={"badge m-1 bg-" + props.item.color}>
+            {props.item.name}
+        </span>
     )
 }
 

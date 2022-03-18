@@ -1,36 +1,19 @@
-import React, {useState} from "react";
-import api from "../api";
+import React from "react";
 import {UsersType} from "../api/fake.api/user.api";
+import User from "./User";
 
-const Users = () => {
+type PropsType = {
+    users: UsersType[]
+    onDelete: (id: string) => void
+    onToggleBookmark: (id: string) => void
+}
 
-    const [users, setUsers] = useState<Array<UsersType>>(api.users.fetchAll());
-
-    const handleDelete = (id: string) => {
-        setUsers(users.filter(user => user._id !== id))
-    };
-    const handlePhrase = (value: number) => {
-        if (value === 0) {
-            return `Никто с тобой не тусанет`
-        }
-        let decCache: [] | number[] = [],
-            decCases = [2, 0, 1, 1, 1, 2];
-
-        function decOfNum(value: number, titles: string[]) {
-            if (!decCache[value]) decCache[value] = value % 100 > 4 && value % 100 < 20 ? 2 : decCases[Math.min(value % 10, 5)];
-            return titles[decCache[value]];
-        }
-
-        return decOfNum(value, [`${value} человек тусанет с тобой сегодня`, `${value} человека тусанут с тобой сегодня`, `${value} человек тусанет с тобой сегодня`]);
-    };
+const Users = (props: PropsType) => {
 
     return (
         <div>
-            <h1><span
-                className={users.length !== 0 ? "badge bg-primary" : "badge bg-danger"}>{handlePhrase(users.length)}</span>
-            </h1>
             {
-                users.length > 0 &&
+                props.users.length > 0 &&
                 <table className="table">
                     <thead>
                     <tr>
@@ -43,22 +26,11 @@ const Users = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {users.map((user) => {
-                        return (
-                            <tr key={user._id}>
-                                <th scope="row" key={user._id}>{user.name}</th>
-                                <td>{user.qualities.map((item) => <span key={item._id}
-                                                                        className={"badge m-1 bg-" + item.color}>{item.name}</span>)}</td>
-                                <td>{user.profession.name}</td>
-                                <td>{user.completedMeetings}</td>
-                                <td>{user.rate}</td>
-                                <td>
-                                    <button className={"btn btn-danger"} onClick={() => handleDelete(user._id)}>delete
-                                    </button>
-                                </td>
-                            </tr>
+                    {props.users.map((user) =>
+                        (
+                            <User key={user._id} onDelete={props.onDelete} user={user} onToggleBookmark={props.onToggleBookmark}/>
                         )
-                    })}
+                    )}
                     </tbody>
                 </table>
             }

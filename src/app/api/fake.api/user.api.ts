@@ -28,7 +28,7 @@ type ProfessionType = {
     _id: string
 }
 
-type QualityType = {
+export type QualityType = {
     _id: string
     name: string
     color: string
