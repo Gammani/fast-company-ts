@@ -4,7 +4,7 @@ type PropsType = {
     length: number
 }
 
-const SearchStatus = (props: PropsType) => {
+const SearchStatus: React.FC<PropsType> = ({length}) => {
 
     const renderPhrase = (value: number) => {
         if (value === 0) {
@@ -25,7 +25,7 @@ const SearchStatus = (props: PropsType) => {
         <div>
             <h1>
                 <span
-                    className={props.length !== 0 ? "badge bg-primary" : "badge bg-danger"}>{renderPhrase(props.length)}
+                    className={length !== 0 ? "badge bg-primary" : "badge bg-danger"}>{renderPhrase(length)}
                 </span>
             </h1>
         </div>

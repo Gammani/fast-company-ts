@@ -10,23 +10,23 @@ type PropsType = {
 }
 
 
-const User = (props: PropsType) => {
+const User: React.FC<PropsType> = ({user, onToggleBookmark, onDelete}) => {
     return (
-        <tr key={props.user._id}>
-            <th scope="row" key={props.user._id}>{props.user.name}</th>
+        <tr key={user._id}>
+            <th scope="row" key={user._id}>{user.name}</th>
             <td>
-                {props.user.qualities.map((item) => (
+                {user.qualities.map((item) => (
                     <Qualities item={item} key={item._id}/>
                 ))}
             </td>
-            <td>{props.user.profession.name}</td>
-            <td>{props.user.completedMeetings}</td>
-            <td>{props.user.rate}</td>
+            <td>{user.profession.name}</td>
+            <td>{user.completedMeetings}</td>
+            <td>{user.rate}</td>
             <td>
-                <Bookmark onToggleBookmark={props.onToggleBookmark} user={props.user} key={props.user._id}/>
+                <Bookmark onToggleBookmark={onToggleBookmark} user={user} key={user._id}/>
             </td>
             <td>
-                <button className={"btn btn-danger"} onClick={() => props.onDelete(props.user._id)}>delete
+                <button className={"btn btn-danger"} onClick={() => onDelete(user._id)}>delete
                 </button>
             </td>
         </tr>

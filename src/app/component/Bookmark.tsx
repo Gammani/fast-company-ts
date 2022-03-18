@@ -6,10 +6,10 @@ type PropsType = {
     user: UsersType
 }
 
-const Bookmark = (props: PropsType) => {
+const Bookmark: React.FC<PropsType> = ({onToggleBookmark, user}) => {
     return (
-        <button onClick={() => props.onToggleBookmark(props.user._id)}>
-            <i className={"bi bi-bookmark" + (props.user.bookmark ? "-heart-fill" : "")}></i>
+        <button onClick={() => onToggleBookmark(user._id)}>
+            <i className={"bi bi-bookmark" + (user.bookmark ? "-heart-fill" : "")}></i>
         </button>
     )
 }

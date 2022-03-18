@@ -5,10 +5,10 @@ type PropsType = {
     item: QualityType
 }
 
-const Qualities = (props: PropsType) => {
+const Qualities: React.FC<PropsType> = ({item}) => {
     return (
-        <span className={"badge m-1 bg-" + props.item.color}>
-            {props.item.name}
+        <span className={"badge m-1 bg-" + item.color}>
+            {item.name}
         </span>
     )
 }

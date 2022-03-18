@@ -8,12 +8,12 @@ type PropsType = {
     onToggleBookmark: (id: string) => void
 }
 
-const Users = (props: PropsType) => {
+const Users: React.FC<PropsType> = ({users, onDelete, onToggleBookmark}) => {
 
     return (
         <div>
             {
-                props.users.length > 0 &&
+                users.length > 0 &&
                 <table className="table">
                     <thead>
                     <tr>
@@ -26,9 +26,9 @@ const Users = (props: PropsType) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {props.users.map((user) =>
+                    {users.map((user) =>
                         (
-                            <User key={user._id} onDelete={props.onDelete} user={user} onToggleBookmark={props.onToggleBookmark}/>
+                            <User key={user._id} onDelete={onDelete} user={user} onToggleBookmark={onToggleBookmark}/>
                         )
                     )}
                     </tbody>
