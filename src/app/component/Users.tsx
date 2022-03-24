@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import {UsersType} from "../api/fake.api/user.api";
 import User from "./User";
+import Pagination from "./Pagination";
+import {paginate} from "../../utils/paginate";
 
 type PropsType = {
     users: UsersType[]
@@ -8,12 +10,24 @@ type PropsType = {
     onToggleBookmark: (id: string) => void
 }
 
-const Users: React.FC<PropsType> = ({users, onDelete, onToggleBookmark}) => {
+const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark}) => {
+
+    const count: number = allUsers.length;
+    const pageSize: number = 4;
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+    const handlePageChange = (pageIndex: number) => {
+        console.log('page: ', pageIndex)
+        setCurrentPage(pageIndex);
+    }
+
+    const users = paginate(allUsers, currentPage, pageSize);
+
 
     return (
-        <div>
+        <>
             {
-                users.length > 0 &&
+                count > 0 &&
                 <table className="table">
                     <thead>
                     <tr>
@@ -34,7 +48,8 @@ const Users: React.FC<PropsType> = ({users, onDelete, onToggleBookmark}) => {
                     </tbody>
                 </table>
             }
-        </div>
+            <Pagination itemsCount={count} pageSize={pageSize} currentPage={currentPage} onPageChange={handlePageChange}/>
+        </>
     )
 };
 
