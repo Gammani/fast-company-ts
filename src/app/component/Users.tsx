@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import {UsersType} from "../api/fake.api/user.api";
 import User from "./User";
 import Pagination from "./Pagination";
-import {paginate} from "../../utils/paginate";
+import {paginate} from "../utils/paginate";
+import GroupList from "./GroupList";
+
 
 type PropsType = {
     users: UsersType[]
@@ -26,6 +28,7 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
 
     return (
         <>
+            <GroupList />
             {
                 count > 0 &&
                 <table className="table">
