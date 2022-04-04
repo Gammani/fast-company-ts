@@ -1,13 +1,44 @@
 import React from "react";
 
-const GroupList = () => {
+type PropsType = {
+    items: any
+    onItemSelect: (item: any) => void,
+    selectedItem: any,
+    valueProperty?: string,
+    contentProperty?: string,
+}
+
+const GroupList: React.FC<PropsType> = ({items, onItemSelect, selectedItem, valueProperty = "_id", contentProperty = "name"}) => {
+
+    const itemsIsArray = Array.isArray(items);
+
     return (
         <ul className="list-group">
-            <li className="list-group-item">An item</li>
-            <li className="list-group-item">A second item</li>
-            <li className="list-group-item">A third item</li>
-            <li className="list-group-item">A fourth item</li>
-            <li className="list-group-item">And a fifth one</li>
+            {itemsIsArray
+                ? items.map((item) => {
+                    return (
+                        <li
+                            key={item[valueProperty]}
+                            className={"list-group-item" + (selectedItem === item ? " active" : "")}
+                            onClick={() => onItemSelect(item)}
+                            role={"button"}
+                        >
+                            {item[contentProperty]}
+                        </li>
+                    )
+                })
+                : Object.keys(items).map((item) => {
+                    return (
+                        <li
+                            key={items[item][valueProperty]}
+                            className={"list-group-item" + (selectedItem === items[item] ? " active" : "")}
+                            onClick={() => onItemSelect(items[item])}
+                            role={"button"}
+                        >
+                            {items[item][contentProperty]}
+                        </li>
+                    )
+                })}
         </ul>
     );
 };

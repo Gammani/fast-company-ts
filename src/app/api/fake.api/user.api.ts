@@ -1,33 +1,9 @@
-import {professions} from "./professions.api";
-
+import {professionsObject as professions} from "./professions.api";
 
 // Profession Type
 
-type DoctorType = {
-    _id: string
-    name: "Доктор"
-}
-type WaiterType = {
-    _id: string
-    name: "Официант"
-}
-type PhysicsType = {
-    _id: string
-    name: "Физик"
-}
-type EngineerType = {
-    _id: string
-    name: "Инженер"
-}
-type ActorType = {
-    _id: string
-    name: "Актер"
-}
-type CookType = {
-    _id: string
-    name: "Повар"
-}
-type ProfessionType = {
+
+export type ProfessionType = {
     name: string
     _id: string
 }
@@ -46,20 +22,19 @@ type QualitiesType = {
     uncertain: QualityType
 }
 
-export type ProfessionsType = {
-    doctor: DoctorType
-    waiter: WaiterType
-    physics: PhysicsType
-    engineer: EngineerType
-    actor: ActorType
-    cook: CookType
+export type ProfessionsTypeObject = {
+    doctor: ProfessionType
+    waiter: ProfessionType
+    physics: ProfessionType
+    engineer: ProfessionType
+    actor: ProfessionType
+    cook: ProfessionType
 }
-type ProfType = DoctorType | WaiterType | PhysicsType | EngineerType | ActorType | CookType | ProfessionType
 
 export type UsersType = {
     _id: string
     name: string
-    profession: ProfType
+    profession: ProfessionType
     qualities: Array<QualityType>
     completedMeetings: number
     rate: number

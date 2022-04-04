@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import Users from "./component/Users";
-import SearchStatus from "./component/SearchStatus";
 import {UsersType} from "./api/fake.api/user.api";
 import api from "./api";
 
@@ -25,7 +24,6 @@ const App = () => {
 
     return (
         <div>
-            <SearchStatus length={users.length}/>
             <Users onDelete={handleDelete} users={users} onToggleBookmark={handleToggleBookMark}/>
         </div>
     )
