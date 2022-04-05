@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ProfessionType, UsersType} from "../api/fake.api/user.api";
+import {ProfessionsTypeObject, ProfessionType, UsersType} from "../api/fake.api/user.api";
 import User from "./User";
 import Pagination from "./Pagination";
 import api from "../api";
@@ -19,8 +19,8 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
 
     const pageSize: number = 4;
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [professions, setProfessions] = useState<any>();
-    const [selectedProf, setSelectedProf] = useState<any>();
+    const [professions, setProfessions] = useState<undefined | ProfessionsTypeObject | Array<ProfessionType>>(undefined);
+    const [selectedProf, setSelectedProf] = useState<undefined | ProfessionType>(undefined);
 
     useEffect(() => {
         api.professions.fetchAll().then((data: any) => setProfessions(data));

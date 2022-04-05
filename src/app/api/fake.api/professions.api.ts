@@ -19,7 +19,7 @@ export const professions: Array<ProfessionType> = [
     { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
 ];
 
-const fetchAll = () => new Promise((resolve: any) => {
+const fetchAll = () => new Promise((resolve) => {
     window.setTimeout(function () {
         resolve(professions)
     }, 2000)
