@@ -43,7 +43,7 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
         setCurrentPage(pageIndex);
     }
 
-    const filteredUsers = selectedProf ? allUsers.filter(user => user.profession.name === selectedProf.name) : allUsers;
+    const filteredUsers = selectedProf ? allUsers.filter(user => JSON.stringify(user.profession) === JSON.stringify(selectedProf)) : allUsers;
     const count: number = filteredUsers.length;
 
     let users = paginate(filteredUsers, currentPage, pageSize);
