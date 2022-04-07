@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {ProfessionsTypeObject, ProfessionType, UsersType} from "../api/fake.api/user.api";
-import User from "./User";
 import Pagination from "./Pagination";
 import api from "../api";
 import {paginate} from "../utils/paginate";
 import GroupList from "./GroupList";
 import SearchStatus from "./SearchStatus";
+import UsersTable from "./UsersTable";
+import _ from "lodash";
 
 
 type PropsType = {
     users: UsersType[]
     onDelete: (id: string) => void
     onToggleBookmark: (id: string) => void
+}
+
+export type SortByType = {
+    iter: string
+    order: "asc" | "desc"
 }
 
 const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark}) => {
@@ -21,6 +27,7 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [professions, setProfessions] = useState<undefined | ProfessionsTypeObject | Array<ProfessionType>>(undefined);
     const [selectedProf, setSelectedProf] = useState<undefined | ProfessionType>(undefined);
+    const [sortBy, setSortBy] = useState<SortByType>({iter: "name", order: "asc"});
 
     useEffect(() => {
         api.professions.fetchAll().then((data: any) => setProfessions(data));
@@ -43,10 +50,16 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
         setCurrentPage(pageIndex);
     }
 
+    const handleSort = (item: SortByType) => {
+        setSortBy(item)
+    }
+
     const filteredUsers = selectedProf ? allUsers.filter(user => JSON.stringify(user.profession) === JSON.stringify(selectedProf)) : allUsers;
     const count: number = filteredUsers.length;
 
-    let users = paginate(filteredUsers, currentPage, pageSize);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+
+    let usersCrop = paginate(sortedUsers, currentPage, pageSize);
 
     const clearFilter = () => {
         setSelectedProf(undefined);
@@ -70,27 +83,13 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
             <div className="d-flex flex-column">
                 <SearchStatus length={count}/>
                 {
-                    count > 0 &&
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Качества</th>
-                            <th scope="col">Профессия</th>
-                            <th scope="col">Встретился, раз</th>
-                            <th scope="col">Оценка</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {users.map((user) =>
-                            (
-                                <User key={user._id} onDelete={onDelete} user={user}
-                                      onToggleBookmark={onToggleBookmark}/>
-                            )
-                        )}
-                        </tbody>
-                    </table>
+                    count > 0 && <UsersTable
+                        users={usersCrop}
+                        onDelete={onDelete}
+                        onToggleBookmark={onToggleBookmark}
+                        onSort={handleSort}
+                        currentSort={sortBy}
+                    />
                 }
                 <div className="d-flex justify-content-center">
                     <Pagination
