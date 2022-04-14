@@ -4,8 +4,8 @@ import {UsersType} from "../api/fake.api/user.api";
 import _ from "lodash";
 
 type PropsType = {
-    data: UsersType[]
-    columns: ColumnsType
+    data?: UsersType[]
+    columns?: ColumnsType
 }
 
 const TableBody: React.FC<PropsType> = ({data, columns}) => {
@@ -13,22 +13,24 @@ const TableBody: React.FC<PropsType> = ({data, columns}) => {
     const renderContent = (item: UsersType, column: string) => {
 
         {
-            if (columns[column].component) {
-                const component = columns[column].component
-                if (typeof component === "function") {
-                    return component(item);
+            if(columns) {
+                if (columns[column].component) {
+                    const component = columns[column].component
+                    if (typeof component === "function") {
+                        return component(item);
+                    }
+                    return component
                 }
-                return component
+                return _.get(item, columns[column].path);
             }
-            return _.get(item, columns[column].path);
         }
     }
 
     return (
         <tbody>
-        {data.map((item: UsersType) => (
+        {data && data.map((item: UsersType) => (
             <tr key={item._id}>
-                {Object.keys(columns).map((column) => (
+                {columns && Object.keys(columns).map((column) => (
                     <td key={column}>
                         {renderContent(item, column)}
                     </td>

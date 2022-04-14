@@ -3,9 +3,9 @@ import {SortByType} from "./Users";
 import {ColumnsType} from "./UsersTable";
 
 type PropsType = {
-    onSort: (item: SortByType) => void
-    selectedSort: SortByType
-    columns: ColumnsType
+    onSort?: (item: SortByType) => void
+    selectedSort?: SortByType
+    columns?: ColumnsType
 }
 
 const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
@@ -14,9 +14,9 @@ const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
         console.log("item ", item)
         if (selectedSort) {
             if (selectedSort.path === item) {
-                onSort({...selectedSort, order: selectedSort.order === "asc" ? "desc" : "asc"});
+                if (onSort) onSort({...selectedSort, order: selectedSort.order === "asc" ? "desc" : "asc"});
             } else {
-                onSort({path: item, order: "asc"});
+                if (onSort) onSort({path: item, order: "asc"});
             }
         }
     }
@@ -30,7 +30,7 @@ const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
         <thead>
         <tr>
             {
-                Object.keys(columns).map((column) => (
+                columns && Object.keys(columns).map((column) => (
                     <th
                         key={column}
                         onClick={() => columns[column].path ? handleSort(columns[column].path) : undefined}
@@ -40,18 +40,11 @@ const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
                     >
                         {columns[column].name}
                         {
-                            renderSortArrow(selectedSort, columns[column].path)
+                            selectedSort && renderSortArrow(selectedSort, columns[column].path)
                         }
                     </th>
                 ))
             }
-            {/*<th onClick={() => handleSort("name")} scope="col" role={"button"}>Имя</th>*/}
-            {/*<th scope="col">Качества</th>*/}
-            {/*<th role={"button"} onClick={() => handleSort("profession.name")} scope="col">Профессия</th>*/}
-            {/*<th role={"button"} onClick={() => handleSort("completedMeetings")} scope="col">Встретился, раз</th>*/}
-            {/*<th role={"button"} onClick={() => handleSort("rate")} scope="col">Оценка</th>*/}
-            {/*<th role={"button"} onClick={() => handleSort("bookmark")} scope="col">Избранное</th>*/}
-            {/*<th/>*/}
         </tr>
         </thead>
     );

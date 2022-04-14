@@ -1,10 +1,9 @@
 import React from "react";
 import {UsersType} from "../api/fake.api/user.api";
 import {SortByType} from "./Users";
-import TableHeader from "./TableHeader";
-import TableBody from "./TableBody";
 import Bookmark from "./Bookmark";
 import QualitiesList from "./QualitiesList";
+import Table from "./Table";
 
 type PropsType = {
     users: UsersType[]
@@ -16,9 +15,6 @@ type PropsType = {
 
 type ColumnType = {
     [key: string]: string
-    // in lodash is missing type undefined for 'PropertyPath'
-    // path?: string
-    // name?: string
 }
 type BookmarkType = {
     path: string
@@ -45,7 +41,7 @@ export type ColumnsType = {
 
 const UsersTable: React.FC<PropsType> = ({users, onDelete, onToggleBookmark, onSort, selectedSort}) => {
 
-    const columns: ColumnsType = {
+    const columns: ColumnsType | undefined= {
         name: {path: "name", name: "Имя"},
         qualities: {name: "Качества", component: (user: UsersType) => (<QualitiesList qualities={user.qualities}/>)},
         professions: {path: "profession.name", name: "Профессия"},
@@ -66,19 +62,7 @@ const UsersTable: React.FC<PropsType> = ({users, onDelete, onToggleBookmark, onS
 
 
     return (
-        <table className="table">
-            {/*<TableHeader onSort={onSort} selectedSort={selectedSort} columns={undefined}/>*/}
-            <TableHeader {...{onSort, selectedSort}} columns={columns}/>
-            <TableBody {...{columns, data: users}}/>
-            {/*<tbody>*/}
-            {/*{users.map((user) =>*/}
-            {/*    (*/}
-            {/*        <User key={user._id} onDelete={onDelete} user={user}*/}
-            {/*              onToggleBookmark={onToggleBookmark}/>*/}
-            {/*    )*/}
-            {/*)}*/}
-            {/*</tbody>*/}
-        </table>
+        <Table onSort={onSort} selectedSort={selectedSort} columns={columns} data={users}/>
     );
 };
 
