@@ -4,6 +4,7 @@ import {professionsObject as professions} from "./professions.api";
 
 
 export type ProfessionType = {
+    [key: string]: string
     name: string
     _id: string
 }
@@ -13,7 +14,7 @@ export type QualityType = {
     name: string
     color: string
 }
-type QualitiesType = {
+export type QualitiesType = {
     tedious: QualityType
     strange: QualityType
     buller: QualityType
@@ -23,6 +24,7 @@ type QualitiesType = {
 }
 
 export type ProfessionsTypeObject = {
+    [key: string]: ProfessionType
     doctor: ProfessionType
     waiter: ProfessionType
     physics: ProfessionType
