@@ -14,7 +14,7 @@ export type QualityType = {
     name: string
     color: string
 }
-type QualitiesType = {
+export type QualitiesType = {
     tedious: QualityType
     strange: QualityType
     buller: QualityType

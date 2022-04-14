@@ -1,6 +1,6 @@
 import React from "react";
 import {UsersType} from "../api/fake.api/user.api";
-import Qualities from "./Qualities";
+import Quality from "./Quality";
 import Bookmark from "./Bookmark";
 
 type PropsType = {
@@ -16,14 +16,14 @@ const User: React.FC<PropsType> = ({user, onToggleBookmark, onDelete}) => {
             <th scope="row" key={user._id}>{user.name}</th>
             <td>
                 {user.qualities.map((item) => (
-                    <Qualities item={item} key={item._id}/>
+                    <Quality item={item} key={item._id}/>
                 ))}
             </td>
             <td>{user.profession.name}</td>
             <td>{user.completedMeetings}</td>
             <td>{user.rate}</td>
             <td>
-                <Bookmark onToggleBookmark={onToggleBookmark} user={user} key={user._id}/>
+                <Bookmark onToggleBookmark={() => onToggleBookmark(user._id)} status={user.bookmark} key={user._id}/>
             </td>
             <td>
                 <button className={"btn btn-danger"} onClick={() => onDelete(user._id)}>delete

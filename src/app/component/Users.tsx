@@ -16,7 +16,7 @@ type PropsType = {
 }
 
 export type SortByType = {
-    iter: string
+    path: string
     order: "asc" | "desc"
 }
 
@@ -27,7 +27,7 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [professions, setProfessions] = useState<undefined | ProfessionsTypeObject | Array<ProfessionType>>(undefined);
     const [selectedProf, setSelectedProf] = useState<undefined | ProfessionType>(undefined);
-    const [sortBy, setSortBy] = useState<SortByType>({iter: "name", order: "asc"});
+    const [sortBy, setSortBy] = useState<SortByType>({path: "name", order: "asc"});
 
     useEffect(() => {
         api.professions.fetchAll().then((data: any) => setProfessions(data));
@@ -57,7 +57,7 @@ const Users: React.FC<PropsType> = ({users: allUsers, onDelete, onToggleBookmark
     const filteredUsers = selectedProf ? allUsers.filter(user => JSON.stringify(user.profession) === JSON.stringify(selectedProf)) : allUsers;
     const count: number = filteredUsers.length;
 
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
 
     let usersCrop = paginate(sortedUsers, currentPage, pageSize);
 
