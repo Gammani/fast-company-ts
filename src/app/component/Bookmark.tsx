@@ -1,15 +1,14 @@
 import React from "react";
-import {UsersType} from "../api/fake.api/user.api";
 
 type PropsType = {
-    onToggleBookmark: (id: string) => void
-    user: UsersType
+    onToggleBookmark: () => void
+    status: boolean
 }
 
-const Bookmark: React.FC<PropsType> = ({onToggleBookmark, user}) => {
+const Bookmark: React.FC<PropsType> = ({onToggleBookmark, status}) => {
     return (
-        <button onClick={() => onToggleBookmark(user._id)}>
-            <i className={"bi bi-bookmark" + (user.bookmark ? "-heart-fill" : "")}></i>
+        <button onClick={() => onToggleBookmark()}>
+            <i className={"bi bi-bookmark" + (status ? "-heart-fill" : "")}></i>
         </button>
     )
 }

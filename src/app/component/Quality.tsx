@@ -5,7 +5,7 @@ type PropsType = {
     item: QualityType
 }
 
-const Qualities: React.FC<PropsType> = ({item}) => {
+const  Quality: React.FC<PropsType> = ({item}) => {
     return (
         <span className={"badge m-1 bg-" + item.color}>
             {item.name}
@@ -13,4 +13,4 @@ const Qualities: React.FC<PropsType> = ({item}) => {
     )
 }
 
-export default Qualities;
+export default Quality;

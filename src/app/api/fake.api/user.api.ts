@@ -1,29 +1,10 @@
+import {professionsObject as professions} from "./professions.api";
+
 // Profession Type
-type DoctorType = {
-    _id: string
-    name: "Доктор"
-}
-type WaiterType = {
-    _id: string
-    name: "Официант"
-}
-type PhysicsType = {
-    _id: string
-    name: "Физик"
-}
-type EngineerType = {
-    _id: string
-    name: "Инженер"
-}
-type ActorType = {
-    _id: string
-    name: "Актер"
-}
-type CookType = {
-    _id: string
-    name: "Повар"
-}
-type ProfessionType = {
+
+
+export type ProfessionType = {
+    [key: string]: string
     name: string
     _id: string
 }
@@ -33,7 +14,7 @@ export type QualityType = {
     name: string
     color: string
 }
-type QualitiesType = {
+export type QualitiesType = {
     tedious: QualityType
     strange: QualityType
     buller: QualityType
@@ -42,45 +23,59 @@ type QualitiesType = {
     uncertain: QualityType
 }
 
-type ProfessionsType = {
-    doctor: DoctorType
-    waiter: WaiterType
-    physics: PhysicsType
-    engineer: EngineerType
-    actor: ActorType
-    cook: CookType
+export type ProfessionsTypeObject = {
+    [key: string]: ProfessionType
+    doctor: ProfessionType
+    waiter: ProfessionType
+    physics: ProfessionType
+    engineer: ProfessionType
+    actor: ProfessionType
+    cook: ProfessionType
 }
-type ProfType = DoctorType | WaiterType | PhysicsType | EngineerType | ActorType | CookType | ProfessionType
 
 export type UsersType = {
     _id: string
     name: string
-    profession: ProfType
+    profession: ProfessionType
     qualities: Array<QualityType>
     completedMeetings: number
     rate: number
     bookmark: boolean
 }
 
-
-const professions: ProfessionsType = {
-    doctor: {_id: "67rdca3eeb7f6fgeed471818", name: "Доктор"},
-    waiter: {_id: "67rdca3eeb7f6fgeed471820", name: "Официант"},
-    physics: {_id: "67rdca3eeb7f6fgeed471814", name: "Физик"},
-    engineer: {_id: "67rdca3eeb7f6fgeed471822", name: "Инженер"},
-    actor: {_id: "67rdca3eeb7f6fgeed471824", name: "Актер"},
-    cook: {_id: "67rdca3eeb7f6fgeed471829", name: "Повар"}
-}
-
 const qualities: QualitiesType = {
-    tedious: {_id: "67rdca3eeb7f6fgeed471198", name: "Нудила", color: "primary"},
-    strange: {_id: "67rdca3eeb7f6fgeed471100", name: "Странный", color: "secondary"},
-    buller: {_id: "67rdca3eeb7f6fgeed4711012", name: "Троль", color: "success"},
-    alcoholic: {_id: "67rdca3eeb7f6fgeed471101", name: "Алкоголик", color: "danger"},
-    handsome: {_id: "67rdca3eeb7f6fgeed471102", name: "Красавчик", color: "info"},
-    uncertain: {_id: "67rdca3eeb7f6fgeed471103", name: "Неуверенный", color: "dark"},
+    tedious: {
+        _id: "67rdca3eeb7f6fgeed471198",
+        name: "Нудила",
+        color: "primary"
+    },
+    strange: {
+        _id: "67rdca3eeb7f6fgeed471100",
+        name: "Странный",
+        color: "secondary"
+    },
+    buller: {
+        _id: "67rdca3eeb7f6fgeed4711012",
+        name: "Троль",
+        color: "success"
+    },
+    alcoholic: {
+        _id: "67rdca3eeb7f6fgeed471101",
+        name: "Алкоголик",
+        color: "danger"
+    },
+    handsome: {
+        _id: "67rdca3eeb7f6fgeed471102",
+        name: "Красавчик",
+        color: "info"
+    },
+    uncertain: {
+        _id: "67rdca3eeb7f6fgeed471103",
+        name: "Неуверенный",
+        color: "dark"
+    },
 
-}
+};
 
 const users: Array<UsersType> = [
     {
@@ -191,8 +186,21 @@ const users: Array<UsersType> = [
         rate: 5,
         bookmark: false
     },
-]
+];
 
-export function fetchAll() {
-    return users
-}
+const fetchAll = () => new Promise((resolve) => {
+    window.setTimeout(function () {
+        resolve(users);
+    }, 2000)
+});
+
+const getById = (id: string) => new Promise((resolve) => {
+    window.setTimeout(function () {
+        resolve(users.find((user) => user._id === id))
+    }, 1000)
+})
+
+export default {
+    fetchAll,
+    getById
+};

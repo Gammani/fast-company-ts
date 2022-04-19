@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {UsersType} from "../app/api/fake.api/user.api";
+import {UsersType} from "../api/fake.api/user.api";
 
 export function paginate(items: Array<UsersType>, pageNumber: number, pageSize: number) {
 
