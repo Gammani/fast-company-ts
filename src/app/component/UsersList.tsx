@@ -14,7 +14,7 @@ export type SortByType = {
     order: "asc" | "desc"
 }
 
-const Users: React.FC = () => {
+const UsersList: React.FC = () => {
 
 
     const pageSize: number = 4;
@@ -133,4 +133,4 @@ const Users: React.FC = () => {
     );
 };
 
-export default Users;
+export default UsersList;

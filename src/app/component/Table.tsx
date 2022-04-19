@@ -1,7 +1,7 @@
 import React from "react";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
-import {SortByType} from "./Users";
+import {SortByType} from "./UsersList";
 import {ColumnsType} from "./UsersTable";
 import {UsersType} from "../api/fake.api/user.api";
 

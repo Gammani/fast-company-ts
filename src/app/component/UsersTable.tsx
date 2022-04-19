@@ -1,9 +1,10 @@
 import React from "react";
 import {UsersType} from "../api/fake.api/user.api";
-import {SortByType} from "./Users";
+import {SortByType} from "./UsersList";
 import Bookmark from "./Bookmark";
 import QualitiesList from "./QualitiesList";
 import Table from "./Table";
+import {Link} from "react-router-dom";
 
 type PropsType = {
     users: UsersType[]
@@ -15,6 +16,11 @@ type PropsType = {
 
 type ColumnType = {
     [key: string]: string
+}
+type UserType = {
+    path: string
+    name: string
+    component: (user: UsersType) => void
 }
 type BookmarkType = {
     path: string
@@ -28,8 +34,8 @@ type QualitiesType = {
 }
 
 export type ColumnsType = {
-    [key: string]: ColumnType | BookmarkType | DeleteType | QualitiesType
-    name: ColumnType
+    [key: string]: ColumnType | BookmarkType | DeleteType | QualitiesType | UserType
+    name: UserType
     qualities: QualitiesType
     professions: ColumnType
     completedMeetings: ColumnType
@@ -42,7 +48,7 @@ export type ColumnsType = {
 const UsersTable: React.FC<PropsType> = ({users, onDelete, onToggleBookmark, onSort, selectedSort}) => {
 
     const columns: ColumnsType | undefined= {
-        name: {path: "name", name: "Имя"},
+        name: {path: "name", name: "Имя", component: (user: UsersType) => <Link to={`${user._id}`}>{user.name}</Link>},
         qualities: {name: "Качества", component: (user: UsersType) => (<QualitiesList qualities={user.qualities}/>)},
         professions: {path: "profession.name", name: "Профессия"},
         completedMeetings: {path: "completedMeetings", name: "Встретился, раз"},
