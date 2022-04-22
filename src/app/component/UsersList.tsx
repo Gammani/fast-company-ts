@@ -20,11 +20,10 @@ const UsersList: React.FC = () => {
     const pageSize: number = 4;
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [professions, setProfessions] = useState<undefined | ProfessionsTypeObject | Array<ProfessionType>>(undefined);
+    const [searchQuery, setSearchQuery] = useState<string>("");
     const [selectedProf, setSelectedProf] = useState<undefined | ProfessionType>(undefined);
     const [sortBy, setSortBy] = useState<SortByType>({path: "name", order: "asc"});
-
     const [users, setUsers] = useState<Array<UsersType> | undefined>(undefined);
-    console.log("users init = ", users)
 
     useEffect(() => {
         api.users.fetchAll().then((data: any) => setUsers(data))
@@ -56,19 +55,23 @@ const UsersList: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        console.log(professions);
     }, [professions]);
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchQuery]);
 
     const handleProfessionSelect = (item: ProfessionType) => {
+        setSearchQuery("");
         setSelectedProf(item);
-        console.log(item);
     }
 
+    const handleSearchQuery: React.ChangeEventHandler<HTMLInputElement> = ({target}) => {
+        setSelectedProf(undefined);
+        setSearchQuery(target.value);
+    }
+
+
     const handlePageChange = (pageIndex: number) => {
-        console.log('page: ', pageIndex)
         setCurrentPage(pageIndex);
     }
 
@@ -77,14 +80,18 @@ const UsersList: React.FC = () => {
     }
 
     if (users) {
-        const filteredUsers = selectedProf ? users.filter(user => JSON.stringify(user.profession) === JSON.stringify(selectedProf)) : users;
+        const filteredUsers = searchQuery ?
+            users.filter((user) => user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)
+            : selectedProf
+                ? users.filter(user => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
+                : users;
         const count: number = filteredUsers && filteredUsers.length;
 
         const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
-
         let usersCrop = paginate(sortedUsers, currentPage, pageSize);
 
         const clearFilter = () => {
+            setSearchQuery("");
             setSelectedProf(undefined);
         }
 
@@ -105,6 +112,13 @@ const UsersList: React.FC = () => {
                     )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count}/>
+                    <input
+                        type={"text"}
+                        name={"searchQuery"}
+                        placeholder={"Search..."}
+                        onChange={handleSearchQuery}
+                        value={searchQuery}
+                    />
                     {
                         count > 0 && <UsersTable
                             users={usersCrop}

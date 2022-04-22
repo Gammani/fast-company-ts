@@ -12,7 +12,6 @@ const Pagination: React.FC<PropsType> = ({itemsCount, pageSize, onPageChange, cu
 
     const pageCount = Math.ceil(itemsCount / pageSize);
     if(pageCount === 1) return null;
-    console.log({currentPage})
     const pages = _.range(1, pageCount + 1);
 
     return (
