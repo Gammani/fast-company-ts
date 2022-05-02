@@ -1,9 +1,9 @@
 import React from "react";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
-import {SortByType} from "./UsersList";
-import {ColumnsType} from "./UsersTable";
-import {UsersType} from "../api/fake.api/user.api";
+import {SortByType} from "../../page/usersListPage/UsersListPage";
+import {ColumnsType} from "../../ui/UsersTable";
+import {UsersType} from "../../../api/fake.api/user.api";
 
 type PropsType = {
     onSort?: (item: SortByType) => void

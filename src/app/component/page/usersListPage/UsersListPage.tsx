@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {ProfessionsTypeObject, ProfessionType, UsersType} from "../api/fake.api/user.api";
-import Pagination from "./Pagination";
-import api from "../api";
-import {paginate} from "../utils/paginate";
-import GroupList from "./GroupList";
-import SearchStatus from "./SearchStatus";
-import UsersTable from "./UsersTable";
+import {ProfessionsTypeObject, ProfessionType, UsersType} from "../../../api/fake.api/user.api";
+import Pagination from "../../common/Pagination";
+import api from "../../../api";
+import {paginate} from "../../../utils/paginate";
+import GroupList from "../../common/GroupList";
+import SearchStatus from "../../ui/SearchStatus";
+import UsersTable from "../../ui/UsersTable";
 import _ from "lodash";
 
 
@@ -14,7 +14,7 @@ export type SortByType = {
     order: "asc" | "desc"
 }
 
-const UsersList: React.FC = () => {
+const UsersListPage: React.FC = () => {
 
 
     const pageSize: number = 4;
@@ -54,8 +54,6 @@ const UsersList: React.FC = () => {
         api.professions.fetchAll().then((data: any) => setProfessions(data));
     }, []);
 
-    useEffect(() => {
-    }, [professions]);
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf, searchQuery]);
@@ -147,4 +145,4 @@ const UsersList: React.FC = () => {
     );
 };
 
-export default UsersList;
+export default UsersListPage;
