@@ -9,6 +9,7 @@ type PropsType = {
     name: string
     defaultValue: Array<QualityType>
     label: string
+    values?: any
 }
 
 const MultiSelectField: React.FC<PropsType> = ({options, onChange, name, label, defaultValue}) => {

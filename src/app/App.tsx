@@ -12,7 +12,11 @@ const App = () => {
             <NavBar/>
             <Routes>
                 <Route path={"/users"}>
-                    <Route path={":userId"} element={<Users/>}/>
+                    <Route path={":userId"} element={<Users/>}>
+                        <Route path={":edit"} element={<Users/>}/>
+                        <Route path={""} element={<Users/>}/>
+                        <Route/>
+                    </Route>
                     <Route path={""} element={<Users/>}/>
 
                 </Route>
@@ -22,7 +26,7 @@ const App = () => {
                 </Route>
                 <Route path={"/"} element={<Main/>}/>
                 <Route
-                    path="*"
+                    path={"*"}
                     element={<Navigate to="/" replace/>}
                 />
             </Routes>

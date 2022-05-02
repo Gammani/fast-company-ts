@@ -17,8 +17,11 @@ const UserPage: React.FC<PropsType> = ({userId}) => {
         api.users.getById(userId).then((data: any) => setUser(data))
     }, [])
 
-    const handleClick = () => {
+    const handleClickUsers = () => {
         navigate("/users");
+    }
+    const handleClickEdit = () => {
+        navigate(`/users/${userId}/edit`);
     }
 
     if (user) {
@@ -29,7 +32,8 @@ const UserPage: React.FC<PropsType> = ({userId}) => {
                 <QualitiesList qualities={user.qualities}/>
                 <h3>completedMeetings: {user.completedMeetings}</h3>
                 <h2>Rate: {user.rate}</h2>
-                <button onClick={handleClick}>Все пользователи</button>
+                <button onClick={handleClickUsers}>Все пользователи</button>
+                <button onClick={handleClickEdit}>Изменить</button>
             </>
         );
     } else {
