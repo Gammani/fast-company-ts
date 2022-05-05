@@ -2,11 +2,11 @@ import React from "react";
 import {ProfessionsTypeObject, ProfessionType} from "../../../api/fake.api/user.api";
 
 type PropsType = {
-    label: string
+    label?: string
     value: string
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
     defaultOption: string
-    options: Array<ProfessionType> | ProfessionsTypeObject | undefined
+    options: Array<ProfessionType> | ProfessionsTypeObject | undefined | any
     error: string
     name: string
 }
@@ -34,27 +34,27 @@ const SelectField: React.FC<PropsType> = ({label, value, onChange, defaultOption
                 onChange={onChange}
             >
                 <option disabled value="">{defaultOption}</option>
-                {/*{*/}
-                {/*    optionsArray && optionsArray.map((option) => <option*/}
-                {/*            key={option.value}*/}
-                {/*            value={option.value}>*/}
-                {/*            {option.name}*/}
-                {/*        </option>*/}
-                {/*    )*/}
-                {/*}*/}
                 {
-                    Array.isArray(options) ?
-                        options && options.map((profession) => <option
-                            key={profession._id}
-                            value={profession._id}>
-                            {profession.name}
+                    optionsArray && optionsArray.map((option: any) => <option
+                            key={option.value}
+                            value={option.value}>
+                            {option.name}
                         </option>
-                        ) : options && Object.keys(options).map((professionName) => <option
-                        key={options[professionName]._id}
-                        value={options[professionName]._id}>
-                        {options[professionName].name}
-                    </option>)
+                    )
                 }
+                {/*{*/}
+                {/*    Array.isArray(options) ?*/}
+                {/*        options && options.map((profession) => <option*/}
+                {/*            key={profession._id}*/}
+                {/*            value={profession._id}>*/}
+                {/*            {profession.name}*/}
+                {/*        </option>*/}
+                {/*        ) : options && Object.keys(options).map((professionName) => <option*/}
+                {/*        key={options[professionName]._id}*/}
+                {/*        value={options[professionName]._id}>*/}
+                {/*        {options[professionName].name}*/}
+                {/*    </option>)*/}
+                {/*}*/}
             </select>
 
             {error ?

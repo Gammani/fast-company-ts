@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {validator} from "../../utils/validator";
-import TextField from "../common/form/textField";
+import TextField from "../common/form/TextField";
 import {ErrorsType} from "./LoginForm";
 import api from "../../api";
 import {ProfessionsTypeObject, ProfessionType} from "../../api/fake.api/user.api";

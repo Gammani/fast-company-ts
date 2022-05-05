@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import TextField from "../../common/form/textField";
+
 import SelectField from "../../common/form/SelectField";
 import RadioField from "../../common/form/RadioField";
 import MultiSelectField from "../../common/form/MultiSelectField";
@@ -10,6 +10,7 @@ import api from "../../../api";
 import {validator} from "../../../utils/validator";
 import {QualitiesType} from "../../../api/fake.api/qualities.api";
 import {ErrorsType} from "../../ui/LoginForm";
+import TextField from "../../common/form/TextField";
 
 
 type DataType = {

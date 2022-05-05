@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {validator} from "../../utils/validator";
-import TextField from "../common/form/textField";
+import TextField from "../common/form/TextField";
 import CheckBoxField from "../common/form/CheckBoxField";
 import {LicenseType} from "./RegisterForm";
 
