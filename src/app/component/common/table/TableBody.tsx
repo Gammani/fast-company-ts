@@ -1,6 +1,6 @@
 import React from "react";
-import {ColumnsType} from "./UsersTable";
-import {UsersType} from "../api/fake.api/user.api";
+import {ColumnsType} from "../../ui/UsersTable";
+import {UsersType} from "../../../api/fake.api/user.api";
 import _ from "lodash";
 
 type PropsType = {

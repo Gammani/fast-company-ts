@@ -1,6 +1,6 @@
 import React from "react";
 import Quality from "./Quality";
-import {QualityType} from "../api/fake.api/user.api";
+import {QualityType} from "../../../api/fake.api/user.api";
 
 type PropsType = {
     qualities: Array<QualityType>

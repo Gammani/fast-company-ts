@@ -1,6 +1,6 @@
 import React from "react";
-import {SortByType} from "./UsersList";
-import {ColumnsType} from "./UsersTable";
+import {SortByType} from "../../page/usersListPage/UsersListPage";
+import {ColumnsType} from "../../ui/UsersTable";
 
 type PropsType = {
     onSort?: (item: SortByType) => void
@@ -11,7 +11,6 @@ type PropsType = {
 const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
 
     const handleSort = (item: string) => {
-        console.log("item ", item)
         if (selectedSort) {
             if (selectedSort.path === item) {
                 if (onSort) onSort({...selectedSort, order: selectedSort.order === "asc" ? "desc" : "asc"});
@@ -20,7 +19,6 @@ const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
             }
         }
     }
-    console.log("selectedSort = ", selectedSort)
     const renderSortArrow = (selectedSort: SortByType, currentPath: string) => {
         return selectedSort.path === currentPath ? selectedSort.order === "asc" ?
             <i className="bi bi-caret-down-fill"></i> : <i className="bi bi-caret-up-fill"></i> : "";
@@ -33,7 +31,7 @@ const TableHeader: React.FC<PropsType> = ({onSort, selectedSort, columns}) => {
                 columns && Object.keys(columns).map((column) => (
                     <th
                         key={column}
-                        onClick={() => columns[column].path ? handleSort(columns[column].path) : undefined}
+                        onClick={() => columns && columns[column].path ? handleSort(columns[column].path) : undefined}
                         scope="col"
                         // role={columns[column].iter && "button"}
                         {...{role: columns[column].path && "button"}}

@@ -188,19 +188,55 @@ const users: Array<UsersType> = [
     },
 ];
 
-const fetchAll = () => new Promise((resolve) => {
-    window.setTimeout(function () {
-        resolve(users);
-    }, 2000)
-});
+// const fetchAll = () => new Promise((resolve) => {
+//     window.setTimeout(function () {
+//         resolve(users);
+//     }, 2000)
+// });
+//
+// const getById = (id: string) => new Promise((resolve) => {
+//     window.setTimeout(function () {
+//         resolve(users.find((user) => user._id === id))
+//     }, 1000)
+// })
+//
+// export default {
+//     fetchAll,
+//     getById
+// };
 
-const getById = (id: string) => new Promise((resolve) => {
-    window.setTimeout(function () {
-        resolve(users.find((user) => user._id === id))
-    }, 1000)
-})
 
+if (!localStorage.getItem("users")) {
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+const fetchAll = () =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(JSON.parse(localStorage.getItem("users") || "{}"));
+        }, 2000);
+    });
+const update = (id: any, data: any) =>
+    new Promise((resolve) => {
+        const users = JSON.parse(localStorage.getItem("users") || "{}");
+        const userIndex = users.findIndex((u: UsersType) => u._id === id);
+        users[userIndex] = { ...users[userIndex], ...data };
+        localStorage.setItem("users", JSON.stringify(users));
+        resolve(users[userIndex]);
+    });
+
+const getById = (id: any) =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(
+                JSON.parse(localStorage.getItem("users") || "{}").find(
+                    (user: UsersType) => user._id === id
+                )
+            );
+        }, 1000);
+    });
 export default {
     fetchAll,
-    getById
+    getById,
+    update
 };
